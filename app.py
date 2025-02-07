@@ -37,25 +37,88 @@ def obtener_respuesta(prompt):
 
     return respuesta_completa
 
+# Inicializar la sesión de Streamlit
+if 'paso' not in st.session_state:
+    st.session_state.paso = 0
+
 # Interfaz de usuario de Streamlit
 st.title("Chatbot de Asesoramiento Laboral")
 
 # Introducción
-st.write("¡Hola! Soy un chatbot diseñado para ayudarte a encontrar empleo. Vamos a recopilar algo de información para ofrecerte recomendaciones personalizadas.")
+if st.session_state.paso == 0:
+    st.write("¡Hola! Soy un chatbot diseñado para ayudarte a encontrar empleo. Vamos a recopilar algo de información para ofrecerte recomendaciones personalizadas.")
+    st.write("¿Cuál es tu género?")
+    genero = st.text_input("", key="genero")
+    if genero:
+        st.session_state.paso += 1
+        st.session_state.genero = genero
+        st.experimental_rerun()
 
-# Recopilación de información
-genero = st.text_input("¿Cuál es tu género?")
-edad = st.text_input("¿Cuántos años tienes?")
-condicion_salud = st.text_input("¿Tienes alguna condición de salud que pueda afectar tu empleo?")
-situacion_economica = st.text_input("¿Cuál es tu situación económica actual?")
-intereses = st.text_input("¿Cuáles son tus intereses y preferencias?")
-antecedentes_profesionales = st.text_input("¿Cuál es tu historial profesional?")
-habilidades = st.text_input("¿Tienes alguna habilidad o certificación específica?")
-educacion = st.text_input("¿Cuál es tu nivel educativo más alto?")
-industrias_interes = st.text_input("¿Hay alguna industria o trabajo específico que te interese?")
+elif st.session_state.paso == 1:
+    st.write(f"Gracias {st.session_state.genero}. ¿Cuántos años tienes?")
+    edad = st.text_input("", key="edad")
+    if edad:
+        st.session_state.paso += 1
+        st.session_state.edad = edad
+        st.experimental_rerun()
 
-# Botón para enviar la consulta
-if st.button("Obtener Recomendaciones"):
+elif st.session_state.paso == 2:
+    st.write(f"¿Tienes alguna condición de salud que pueda afectar tu empleo?")
+    condicion_salud = st.text_input("", key="condicion_salud")
+    if condicion_salud:
+        st.session_state.paso += 1
+        st.session_state.condicion_salud = condicion_salud
+        st.experimental_rerun()
+
+elif st.session_state.paso == 3:
+    st.write("¿Cuál es tu situación económica actual?")
+    situacion_economica = st.text_input("", key="situacion_economica")
+    if situacion_economica:
+        st.session_state.paso += 1
+        st.session_state.situacion_economica = situacion_economica
+        st.experimental_rerun()
+
+elif st.session_state.paso == 4:
+    st.write("¿Cuáles son tus intereses y preferencias?")
+    intereses = st.text_input("", key="intereses")
+    if intereses:
+        st.session_state.paso += 1
+        st.session_state.intereses = intereses
+        st.experimental_rerun()
+
+elif st.session_state.paso == 5:
+    st.write("¿Cuál es tu historial profesional?")
+    antecedentes_profesionales = st.text_input("", key="antecedentes_profesionales")
+    if antecedentes_profesionales:
+        st.session_state.paso += 1
+        st.session_state.antecedentes_profesionales = antecedentes_profesionales
+        st.experimental_rerun()
+
+elif st.session_state.paso == 6:
+    st.write("¿Tienes alguna habilidad o certificación específica?")
+    habilidades = st.text_input("", key="habilidades")
+    if habilidades:
+        st.session_state.paso += 1
+        st.session_state.habilidades = habilidades
+        st.experimental_rerun()
+
+elif st.session_state.paso == 7:
+    st.write("¿Cuál es tu nivel educativo más alto?")
+    educacion = st.text_input("", key="educacion")
+    if educacion:
+        st.session_state.paso += 1
+        st.session_state.educacion = educacion
+        st.experimental_rerun()
+
+elif st.session_state.paso == 8:
+    st.write("¿Hay alguna industria o trabajo específico que te interese?")
+    industrias_interes = st.text_input("", key="industrias_interes")
+    if industrias_interes:
+        st.session_state.paso += 1
+        st.session_state.industrias_interes = industrias_interes
+        st.experimental_rerun()
+
+elif st.session_state.paso == 9:
     # Construir el prompt con la información recopilada
     prompt = (f"Context: Eres un experto en orientación profesional y colocación laboral con más de dos décadas de experiencia.\n"
               f"Role: Ayudar a personas desempleadas a encontrar trabajo.\n"
@@ -64,15 +127,15 @@ if st.button("Obtener Recomendaciones"):
               f"   - Saludo cálido y empático.\n"
               f"   - Breve introducción del propósito del chatbot.\n"
               f"2. Recopilación de información:\n"
-              f"   - Género: {genero}\n"
-              f"   - Edad: {edad}\n"
-              f"   - Condición de salud: {condicion_salud}\n"
-              f"   - Situación económica: {situacion_economica}\n"
-              f"   - Intereses y preferencias: {intereses}\n"
-              f"   - Antecedentes profesionales: {antecedentes_profesionales}\n"
-              f"   - Habilidades o certificaciones: {habilidades}\n"
-              f"   - Nivel educativo: {educacion}\n"
-              f"   - Industrias o trabajos de interés: {industrias_interes}\n"
+              f"   - Género: {st.session_state.genero}\n"
+              f"   - Edad: {st.session_state.edad}\n"
+              f"   - Condición de salud: {st.session_state.condicion_salud}\n"
+              f"   - Situación económica: {st.session_state.situacion_economica}\n"
+              f"   - Intereses y preferencias: {st.session_state.intereses}\n"
+              f"   - Antecedentes profesionales: {st.session_state.antecedentes_profesionales}\n"
+              f"   - Habilidades o certificaciones: {st.session_state.habilidades}\n"
+              f"   - Nivel educativo: {st.session_state.educacion}\n"
+              f"   - Industrias o trabajos de interés: {st.session_state.industrias_interes}\n"
               f"3. Análisis de datos:\n"
               f"   - Identificar fortalezas, limitaciones y preferencias del usuario.\n"
               f"4. Recomendaciones de empleo:\n"

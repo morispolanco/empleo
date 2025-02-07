@@ -11,7 +11,7 @@ def get_groq_response(user_input):
     }
     data = {
         "messages": [
-            {"role": "system", "content": "You are an expert career counselor assisting unemployed individuals with job recommendations."},
+            {"role": "system", "content": "Eres un consejero profesional experto que ayuda a personas desempleadas con recomendaciones laborales."},
             {"role": "user", "content": user_input}
         ],
         "model": "llama-3.3-70b-versatile",
@@ -21,11 +21,11 @@ def get_groq_response(user_input):
         "stream": False
     }
     response = requests.post(url, headers=headers, data=json.dumps(data))
-    return response.json().get("choices", [{}])[0].get("message", {}).get("content", "Error: No response received.")
+    return response.json().get("choices", [{}])[0].get("message", {}).get("content", "Error: No se recibió respuesta.")
 
 # Configurar la interfaz de Streamlit
-st.set_page_config(page_title="Career Chatbot", page_icon="💼")
-st.title("Career Guidance Chatbot 🤖")
+st.set_page_config(page_title="Chatbot de Orientación Laboral", page_icon="💼")
+st.title("Chatbot de Orientación Laboral 🤖")
 
 st.write("Bienvenido/a. Estoy aquí para ayudarte a encontrar oportunidades laborales que se ajusten a tu perfil. Responde algunas preguntas para que pueda ofrecerte recomendaciones personalizadas.")
 

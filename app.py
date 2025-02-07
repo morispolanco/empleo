@@ -14,7 +14,7 @@ def get_groq_response(user_input):
             {"role": "system", "content": "You are an expert career counselor assisting unemployed individuals with job recommendations."},
             {"role": "user", "content": user_input}
         ],
-        "model": "deepseek-r1-distill-llama-70b",
+        "model": "llama-3.3-70b-versatile",
         "temperature": 0.6,
         "max_completion_tokens": 4096,
         "top_p": 0.95,
